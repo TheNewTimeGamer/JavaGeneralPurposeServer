@@ -8,7 +8,7 @@ import newtime.net.tcp.TcpServer;
 
 public class HttpServer extends TcpServer {
 
-	public Router router = new Router();
+	public final Router router = new Router();
 	
 	public static HttpServer host(int port) {
 		HttpServer server = null;

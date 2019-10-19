@@ -61,11 +61,20 @@ public class TcpConnection implements Runnable {
 	}
 
 	public void run() {
+		long last = System.currentTimeMillis();
 		while(listening) {
 			try {
-				listen();
+				boolean receivedData = listen();
+				if(!receivedData) {
+					if(System.currentTimeMillis()-last > 4500) {
+						this.listening = false;
+					}
+				}else {
+					last = System.currentTimeMillis();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
+				listening = false;
 			}
 		}
 		close();
@@ -75,8 +84,8 @@ public class TcpConnection implements Runnable {
 		this.closeInputStream();
 		this.closeOutputStream();
 		this.closeSocket();
-		this.joinThread();
 		this.thread = null;
+		this.server.connections.remove(this);
 	}
 			
 	private boolean closeInputStream() {
@@ -110,23 +119,15 @@ public class TcpConnection implements Runnable {
 		return true;
 	}
 	
-	private boolean joinThread() {
-		try {
-			this.thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-	
-	protected void listen() throws IOException {
+	protected boolean listen() throws IOException {
 		int available = (int) in.available();
 		if(available > 0) {
 			byte[] buffer = new byte[available];
 			in.read(buffer);
 			onData(buffer);
+			return true;
 		}
+		return false;
 	}
 	
 	protected void onData(byte[] data) {

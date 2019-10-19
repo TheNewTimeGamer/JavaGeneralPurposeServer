@@ -1,6 +1,7 @@
 package newtime.debug;
 
 import newtime.net.http.HttpServer;
+import newtime.net.tcp.kernel.Kernel;
 import newtime.net.websocket.WebSocketServer;
 
 public class GeneralDebug {
@@ -10,9 +11,8 @@ public class GeneralDebug {
 	}
 	
 	public GeneralDebug() {
-		//HttpServer server = HttpServer.host(80);
-		WebSocketServer server = WebSocketServer.host(80);
-				
+		HttpServer server = HttpServer.host(80);	
+		Kernel kernel = new Kernel(server);
 	}
 	
 }

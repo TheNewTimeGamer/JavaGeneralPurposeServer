@@ -44,6 +44,7 @@ public class TcpServer implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		close();
 	}
 	
 	protected void listen() throws IOException {
@@ -53,11 +54,10 @@ public class TcpServer implements Runnable {
 		}
 	}
 	
-	protected void close() {
+	public void close() {
 		this.closeInputStream();
 		this.closeOutputStream();
 		this.closeServer();
-		this.joinThread();
 		this.thread = null;
 	}
 			
@@ -86,16 +86,6 @@ public class TcpServer implements Runnable {
 		try {
 			this.server.close();
 		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-	
-	private boolean joinThread() {
-		try {
-			this.thread.join();
-		} catch (InterruptedException e) {
 			e.printStackTrace();
 			return false;
 		}
