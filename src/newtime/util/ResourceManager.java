@@ -47,7 +47,7 @@ public class ResourceManager {
 		return oldData;
 	}
 	
-	public byte[] getResource(String name) {
+	public static byte[] getResource(String name) {
 		ByteBuffer buffer = resources.get(name);
 		if(buffer == null) {return null;}
 		byte[] data = new byte[buffer.limit()];
@@ -55,7 +55,7 @@ public class ResourceManager {
 		return data;
 	}
 	
-	public boolean releaseResource(String name) {
+	public static boolean releaseResource(String name) {
 		ByteBuffer buffer = resources.remove(name);
 		if(buffer == null) {return false;}
 		return true;

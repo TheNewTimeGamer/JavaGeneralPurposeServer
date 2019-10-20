@@ -53,7 +53,7 @@ public class HttpConnection extends TcpConnection {
 		}
 		
 		try {
-			out.write(response.toString().getBytes());
+			out.write(response.toBytes());
 			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -1,5 +1,7 @@
 package newtime.net.http.response;
 
+import java.util.Map;
+
 import newtime.net.http.request.HttpRequest;
 
 public class HttpResponse extends HttpRequest {
@@ -25,11 +27,9 @@ public class HttpResponse extends HttpRequest {
 		this.body = request.body;
 	}
 	
-	public String toString() {
-		String string = super.toString();
-		String[] lines = string.split("\r\n", 2);
-		lines[0] = this.protocol + " " + status;
-		return lines[0] + "\r\n" + lines[1];
+	protected String getProtocolAsString() {
+		String protocol = this.protocol + " " + this.status + "\r\n";
+		return protocol;
 	}
 	
 }

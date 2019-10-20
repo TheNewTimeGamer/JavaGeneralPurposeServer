@@ -12,6 +12,7 @@ import newtime.net.http.response.HttpResponseNotFound;
 
 public class Router {
 
+	public Controller defaultController = new GenericController();
 	public ArrayList<Route> routes = new ArrayList<Route>();
 	
 	public Router() {
@@ -24,6 +25,7 @@ public class Router {
 		if(controller == null) {
 			return new HttpResponseNotFound();
 		}
+		
 		
 		switch(request.method) {
 			case "GET":
@@ -54,6 +56,9 @@ public class Router {
 			if(routes.get(i).action.equals(request.action)) {
 				return routes.get(i).controller;
 			}
+		}
+		if(defaultController != null) {
+			return defaultController;
 		}
 		return null;
 	}

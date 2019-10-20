@@ -1,5 +1,6 @@
 package newtime.net.http.request;
 
+import java.nio.ByteBuffer;
 import java.security.KeyStore.Entry;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class HttpRequest {
 	public HashMap<String, String> get = new HashMap<String, String>();
 	public HashMap<String, String> post = new HashMap<String, String>();
 	
-	public String body;
+	public byte[] body = new byte[0];
 	
 	public HttpRequest() {}
 	
@@ -37,7 +38,7 @@ public class HttpRequest {
 		processGetParameters(lines);
 		
 		if(requestParts.length > 1) {
-			processPostParameters(requestParts[1]);
+			processPostParameters(buffer, requestParts[1]);
 		}
 	}
 	
@@ -75,7 +76,7 @@ public class HttpRequest {
 		}
 	}
 	
-	protected void processPostParameters(String body) {
+	protected void processPostParameters(byte[] buffer, String body) {
 		String contentType = header.get("Content-Type");
 		if(contentType == null || contentType.contains("text/html")) {		
 			if(body.contains("&")) {
@@ -90,14 +91,14 @@ public class HttpRequest {
 				String[] args = body.split("=");
 				post.put(args[0], args[1]);
 			}else {
-				this.body = "";
+				this.body = new byte[0];
 			}
 		}else {
-			this.body = body;
+			this.body = buffer;
 		}
 	}
 	
-	public String toString() {
+	protected String getProtocolAsString() {
 		StringBuilder builder = new StringBuilder();
 		StringBuilder actionBuilder = new StringBuilder();
 		
@@ -112,22 +113,53 @@ public class HttpRequest {
 		}
 		
 		builder.append(method + " " + actionBuilder.toString() + " " + protocol + "\r\n");
-		
+		return builder.toString();
+	}
+	
+	protected String getHeadersAsString() {
+		StringBuilder builder = new StringBuilder();
 		for(Map.Entry<String, String> e : header.entrySet()) {
 			builder.append(e.getKey() + ": " + e.getValue() + "\r\n");
 		}
 		builder.append("\r\n");
+		return builder.toString();
+	}
+	
+	
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(getProtocolAsString());
+		builder.append(getHeadersAsString());
 		
-		if(this.body != null) {
-			builder.append(this.body);
-		}else {
+		if(this.body == null) {
 			for(Map.Entry<String, String> e : post.entrySet()) {
 				builder.append(e.getKey() + "=" + e.getValue() + "&");
 			}
 			builder.deleteCharAt(builder.length()-1);
+		}else{
+			builder.append(new String(this.body));
 		}
 		
 		return builder.toString();
+	}
+	
+	public byte[] toBytes() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(getProtocolAsString());
+		builder.append(getHeadersAsString());
+		
+		if(this.body == null) {
+			for(Map.Entry<String, String> e : post.entrySet()) {
+				builder.append(e.getKey() + "=" + e.getValue() + "&");
+			}
+			builder.deleteCharAt(builder.length()-1);
+			return builder.toString().getBytes();
+		}
+		
+		ByteBuffer buffer = ByteBuffer.allocate(builder.length()+body.length);
+		buffer.put(builder.toString().getBytes());
+		buffer.put(body);
+		return buffer.array();		
 	}
 	
 }

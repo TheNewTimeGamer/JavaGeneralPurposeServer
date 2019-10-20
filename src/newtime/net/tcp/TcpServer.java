@@ -92,6 +92,10 @@ public class TcpServer implements Runnable {
 		return true;
 	}
 	
+	public ArrayList<TcpConnection> getConnections(){
+		return this.connections;
+	}
+	
 	public TcpConnection onConnection(Socket socket) {
 		TcpConnection connection = TcpConnection.create(this, socket);
 		return connection;
