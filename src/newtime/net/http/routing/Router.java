@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import newtime.net.http.HttpConnection;
 import newtime.net.http.control.Controller;
+import newtime.net.http.control.GenericController;
 import newtime.net.http.request.HttpRequest;
 import newtime.net.http.response.HttpResponse;
 import newtime.net.http.response.HttpResponseMethodNotImplemented;
@@ -12,6 +13,11 @@ import newtime.net.http.response.HttpResponseNotFound;
 public class Router {
 
 	public ArrayList<Route> routes = new ArrayList<Route>();
+	
+	public Router() {
+		Route test = new Route("/test", new GenericController());
+		routes.add(test);
+	}
 	
 	public HttpResponse route(HttpConnection connection, HttpRequest request) {
 		Controller controller = getController(request);

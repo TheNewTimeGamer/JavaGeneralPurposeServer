@@ -5,34 +5,16 @@ import newtime.net.http.request.HttpRequest;
 import newtime.net.http.response.HttpResponse;
 import newtime.net.http.response.HttpResponseMethodNotAllowed;
 
-public abstract class Controller {
+public interface Controller {
 
-	public HttpResponse get(HttpConnection connection, HttpRequest request) {
-		return new HttpResponseMethodNotAllowed();
-	}	
-	public HttpResponse post(HttpConnection connection, HttpRequest request) {
-		return new HttpResponseMethodNotAllowed();
-	}
-	public HttpResponse head(HttpConnection connection, HttpRequest request) {
-		return new HttpResponseMethodNotAllowed();
-	}
-	public HttpResponse put(HttpConnection connection, HttpRequest request) {
-		return new HttpResponseMethodNotAllowed();
-	}
-	public HttpResponse delete(HttpConnection connection, HttpRequest request) {
-		return new HttpResponseMethodNotAllowed();
-	}
-	public HttpResponse connect(HttpConnection connection, HttpRequest request) {
-		return new HttpResponseMethodNotAllowed();
-	}
-	public HttpResponse options(HttpConnection connection, HttpRequest request) {
-		return new HttpResponseMethodNotAllowed();
-	}
-	public HttpResponse trace(HttpConnection connection, HttpRequest request) {
-		return new HttpResponseMethodNotAllowed();
-	}
-	public HttpResponse patch(HttpConnection connection, HttpRequest request) {
-		return new HttpResponseMethodNotAllowed();
-	}
+	public abstract HttpResponse get(HttpConnection connection, HttpRequest request);
+	public abstract HttpResponse post(HttpConnection connection, HttpRequest request);
+	public abstract HttpResponse head(HttpConnection connection, HttpRequest request);
+	public abstract HttpResponse put(HttpConnection connection, HttpRequest request);
+	public abstract HttpResponse delete(HttpConnection connection, HttpRequest request); 
+	public abstract HttpResponse connect(HttpConnection connection, HttpRequest request);
+	public abstract HttpResponse options(HttpConnection connection, HttpRequest request);
+	public abstract HttpResponse trace(HttpConnection connection, HttpRequest request);
+	public abstract HttpResponse patch(HttpConnection connection, HttpRequest request);
 	
 }
