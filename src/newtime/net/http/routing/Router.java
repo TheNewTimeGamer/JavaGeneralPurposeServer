@@ -24,9 +24,7 @@ public class Router {
 		Controller controller = getController(request);
 		if(controller == null) {
 			return new HttpResponseNotFound();
-		}
-		
-		
+		}		
 		switch(request.method) {
 			case "GET":
 				return controller.get(connection, request);

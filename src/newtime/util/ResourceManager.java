@@ -22,6 +22,7 @@ public class ResourceManager {
 			DataInputStream in = new DataInputStream(new FileInputStream(file));
 			buffer = new byte[in.available()];
 			in.read(buffer);
+			in.close();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}

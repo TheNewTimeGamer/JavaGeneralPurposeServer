@@ -5,6 +5,7 @@ import newtime.net.http.request.HttpRequest;
 import newtime.net.http.response.HttpResponse;
 import newtime.net.http.response.HttpResponseNotFound;
 import newtime.net.http.response.HttpResponseMethodNotAllowed;
+import newtime.util.FileDictionary;
 import newtime.util.ResourceManager;
 
 public class GenericController implements Controller {
@@ -20,7 +21,7 @@ public class GenericController implements Controller {
 			path = "\\index.html";
 		}
 		
-		path = "http" + path;
+		path = "http\\public" + path;
 		
 		byte[] data = ResourceManager.getFileContent(path);
 		if(data == null) {
@@ -29,8 +30,14 @@ public class GenericController implements Controller {
 		
 		response.body = data;
 		response.header.put("Content-Length", ""+response.body.length);
-		String contentType = request.header.get("Content-Type");
-		if(contentType == null) {contentType = "text/html";}
+		
+		String[] extension = path.split("\\.");
+		
+		String contentType = FileDictionary.getMeta("http", extension[extension.length-1]);
+		if(contentType == null) {
+			contentType = "text/html";
+		}		
+		
 		response.header.put("Content-Type", contentType);
 		return response;
 	}	
