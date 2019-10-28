@@ -35,8 +35,10 @@ public class GenericController implements Controller {
 		
 		String contentType = FileDictionary.getMeta("http", extension[extension.length-1]);
 		if(contentType == null) {
-			contentType = "text/html";
-		}		
+			if((contentType = FileDictionary.getMeta("http", "default")) == null){
+				contentType = "text/html";
+			}
+		}	
 		
 		response.header.put("Content-Type", contentType);
 		return response;

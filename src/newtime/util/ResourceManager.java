@@ -8,6 +8,8 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import newtime.net.http.response.HttpResponse;
+
 public class ResourceManager {
 	
 	private static HashMap<String, ByteBuffer> resources = new HashMap<String, ByteBuffer>();
@@ -61,5 +63,6 @@ public class ResourceManager {
 		if(buffer == null) {return false;}
 		return true;
 	}
+
 	
 }
