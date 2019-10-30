@@ -2,9 +2,9 @@ package newtime.net.gps;
 
 import java.util.HashMap;
 
+import newtime.net.auth.SessionManager;
 import newtime.net.http.HttpServer;
 import newtime.net.tcp.kernel.Kernel;
-import newtime.util.SessionManager;
 
 public class GeneralPurposeServer {
 

@@ -1,4 +1,4 @@
-package newtime.util;
+package newtime.net.auth;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -40,10 +40,4 @@ public class SessionManager {
 		return sessions.get(token).variables;
 	}
 	
-}
-
-class Session {
-		
-	public HashMap<String, Object> variables = new HashMap<String, Object>();
-		
 }
