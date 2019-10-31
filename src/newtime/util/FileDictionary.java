@@ -12,6 +12,11 @@ public class FileDictionary {
 		return dictionary.get(protocol+":"+extension);
 	}
 	
+	public static String getFileExtensionFromPath(String path) {
+		String[] extensions = path.split("\\.");
+		return extensions[extensions.length-1];
+	}
+	
 	public static int load(String path) {
 		return load(new File(path));
 	}

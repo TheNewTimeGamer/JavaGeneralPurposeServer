@@ -12,35 +12,28 @@ public class GenericController implements Controller {
 	
 	public HttpResponse get(HttpConnection connection, HttpRequest request) {
 		HttpResponse response = new HttpResponse();
+		
 		String path = request.action;
-		while(path.contains("..")) {
-			path = path.replace("..", "");
-		}
 		
-		if(path.length() <= 1) {
-			path = "\\index.html";
+		if(!path.contains("\\.")) {
+			path = path + "/index.html";
 		}
-		
-		path = "http\\public" + path;
+		path = "http/public" + path;
+			
+		String fileExtension = FileDictionary.getFileExtensionFromPath(path);
+		String contentType = FileDictionary.getMeta("http", fileExtension);
 		
 		byte[] data = ResourceManager.getFileContent(path);
-		if(data == null) {
-			return new HttpResponseNotFound();
-		}		
 		
-		response.body = data;
-		response.header.put("Content-Length", ""+response.body.length);
-		
-		String[] extension = path.split("\\.");
-		
-		String contentType = FileDictionary.getMeta("http", extension[extension.length-1]);
-		if(contentType == null) {
-			if((contentType = FileDictionary.getMeta("http", "default")) == null){
-				contentType = "text/html";
-			}
-		}	
+		if(contentType.startsWith("text/")) {
+			String raw = new String(data);
+			data = raw.getBytes();
+		}
 		
 		response.header.put("Content-Type", contentType);
+		response.header.put("Content-Length", ""+data.length);
+		
+		response.body = data;
 		return response;
 	}	
 	public HttpResponse post(HttpConnection connection, HttpRequest request) {
