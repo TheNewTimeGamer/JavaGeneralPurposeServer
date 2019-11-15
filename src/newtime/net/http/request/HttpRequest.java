@@ -20,7 +20,7 @@ public class HttpRequest {
 	public String method;
 	public String action;
 	public String protocol = "HTTP/1.1";
-	
+		
 	public HashMap<String, String> header = new HashMap<String, String>();
 	public HashMap<String, String> get = new HashMap<String, String>();
 	public HashMap<String, String> post = new HashMap<String, String>();
