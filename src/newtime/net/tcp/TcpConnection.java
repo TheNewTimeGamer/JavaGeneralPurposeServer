@@ -135,4 +135,8 @@ public class TcpConnection implements Runnable {
 		System.out.println(raw);
 	}
 	
+	public TcpServer getServerInstance() {
+		return this.server;
+	}
+	
 }

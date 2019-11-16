@@ -40,17 +40,17 @@ public class HttpConnection extends TcpConnection {
 	
 	public void onData(byte[] buffer) {
 		HttpRequest request = HttpRequest.build(buffer);
-		HttpResponse response = null;
-		
-		View view = ((HttpServer)server).router.route(this, request);		
-		response = view.build();
-		
+		HttpResponse response = ((HttpServer)this.server).router.route(this, request);				
 		try {
 			out.write(response.toBytes());
 			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public HttpServer getServerInstance() {
+		return (HttpServer)this.server;
 	}
 	
 }
