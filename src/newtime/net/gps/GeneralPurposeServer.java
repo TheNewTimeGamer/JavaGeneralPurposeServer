@@ -1,14 +1,9 @@
 package newtime.net.gps;
 
-import java.util.HashMap;
-
-import newtime.net.auth.SessionManager;
-import newtime.net.http.HttpConnection;
 import newtime.net.http.HttpServer;
-import newtime.net.http.control.Controller;
-import newtime.net.http.request.HttpRequest;
-import newtime.net.http.routing.Route;
-import newtime.net.http.view.View;
+import newtime.net.http.control.ExternalControllerManager;
+import newtime.net.http.routing.ExternalRouter;
+import newtime.net.http.view.ExternalViewManager;
 import newtime.net.tcp.kernel.Kernel;
 
 public class GeneralPurposeServer {
@@ -27,8 +22,10 @@ public class GeneralPurposeServer {
 		}		
 		Kernel kernel = new Kernel(server);
 
+		server.views = new ExternalViewManager();
+		server.controllers = new ExternalControllerManager();
+		server.routes = new ExternalRouter();
 		
 	}
-	
 	
 }

@@ -14,9 +14,9 @@ import newtime.util.FileDictionary;
 
 public class HttpServer extends TcpServer {
 
-	public final Router routes = new InternalRouter();
-	public final ViewManager views = new InternalViewManager();
-	public final ControllerManager controllers = new InternalControllerManager();
+	public Router routes = new InternalRouter();
+	public ViewManager views = new InternalViewManager();
+	public ControllerManager controllers = new InternalControllerManager();
 	
 	public static HttpServer host(int port) {
 		FileDictionary.load("cfg/FileDictionary.cfg");

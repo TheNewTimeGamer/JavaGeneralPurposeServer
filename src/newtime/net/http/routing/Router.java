@@ -6,7 +6,7 @@ import newtime.net.http.response.HttpResponse;
 
 public interface Router {
 
-	public abstract HttpResponse route(HttpConnection connection, HttpRequest response);
+	public abstract HttpResponse route(HttpConnection connection, HttpRequest request);
 	public abstract Route createRoute(String action);
 	public abstract Route createRoute(String action, Method method);
 	
