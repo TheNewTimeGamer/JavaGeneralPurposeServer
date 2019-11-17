@@ -12,6 +12,18 @@ public class HttpResponse extends HttpRequest {
 		super();
 	}
 	
+	public HttpResponse(String status) {
+		super();
+		this.status = status;
+	}
+	
+	public HttpResponse(String status, String message) {
+		super();
+		this.status = status;
+		this.body = message.getBytes();
+		this.header.put("Content-Length", ""+body.length);
+	}
+	
 	public HttpResponse(byte[] buffer) throws Exception {
 		super(buffer);
 	}

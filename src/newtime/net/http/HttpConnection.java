@@ -40,7 +40,8 @@ public class HttpConnection extends TcpConnection {
 	
 	public void onData(byte[] buffer) {
 		HttpRequest request = HttpRequest.build(buffer);
-		HttpResponse response = ((HttpServer)this.server).routes.route(this, request);				
+		HttpResponse response = ((HttpServer)this.server).routes.route(this, request);
+		if(response == null) {return;}
 		try {
 			out.write(response.toBytes());
 			out.flush();

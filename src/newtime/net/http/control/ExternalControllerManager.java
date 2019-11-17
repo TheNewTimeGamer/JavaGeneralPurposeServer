@@ -7,12 +7,14 @@ import java.net.URLClassLoader;
 
 import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
+import newtime.net.http.response.HttpResponse;
+import newtime.net.http.response.HttpResponseInternalServerError;
 import newtime.net.http.view.View;
 
 public class ExternalControllerManager extends ControllerManager {
 
-	public View invoke(HttpConnection connection, HttpRequest request, String controller) {
-		View view = null;
+	public HttpResponse invoke(HttpConnection connection, HttpRequest request, String controller) {
+		HttpResponse response = null;
 		
 		String[] ops = controller.split("@");		
 		File root = new File("http/controllers/");
@@ -22,13 +24,12 @@ public class ExternalControllerManager extends ControllerManager {
 			ClassLoader loader = new URLClassLoader(urls);
 			Class cls = loader.loadClass(ops[0]);
 			Method m = cls.getMethod(ops[1], HttpConnection.class, HttpRequest.class);
-			System.out.println(ops[1] + " " + m);
-			view = (View) m.invoke(null, connection, request);
+			response = (HttpResponse) m.invoke(null, connection, request);
 		}catch(Exception e) {
 			e.printStackTrace();
+			response = new HttpResponseInternalServerError();
 		}
-		
-		return view;
+		return response;
 	}
 	
 }

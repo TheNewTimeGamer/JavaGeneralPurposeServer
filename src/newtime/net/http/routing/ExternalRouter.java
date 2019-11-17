@@ -27,7 +27,7 @@ public class ExternalRouter extends Router {
 			if(ops[0].equals("view")) {
 				response = connection.getServerInstance().views.get(ops[1]).build();
 			}else if (ops[0].equals("controller")) {
-				response = connection.getServerInstance().controllers.invoke(connection, request, ops[1]).build();
+				response = connection.getServerInstance().controllers.invoke(connection, request, ops[1]);
 			}
 		}
 		
