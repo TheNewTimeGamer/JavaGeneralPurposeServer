@@ -5,7 +5,7 @@ import java.io.File;
 import newtime.net.http.response.HttpResponse;
 import newtime.util.ResourceManager;
 
-public abstract class View {
+public class View {
 	
 	private String content;
 	

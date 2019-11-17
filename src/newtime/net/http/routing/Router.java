@@ -13,38 +13,61 @@ public class Router {
 	public HttpResponse route(HttpConnection connection, HttpRequest request) {
 		Route route = routes.get(request.action);
 		if(route == null) {
-			return connection.getServerInstance().viewManager.views.get("error404").build();
+			return connection.getServerInstance().views.get("FILE_NOT_FOUND").build();
 		}
 		switch(request.method) {
 			case "GET":
-				route.get.perform(connection, request);
-				break;
+				if(route.get == null) {break;}
+				return route.get.perform(connection, request);
 			case "POST":
-				route.post.perform(connection, request);
-				break;
+				if(route.post == null) {break;}
+				return route.post.perform(connection, request);
 			case "HEAD":
-				route.head.perform(connection, request);
-				break;
+				if(route.head == null) {break;}
+				return route.head.perform(connection, request);
 			case "PUT":
-				route.put.perform(connection, request);
-				break;
+				if(route.put == null) {break;}
+				return route.put.perform(connection, request);
 			case "DELETE":
-				route.delete.perform(connection, request);
-				break;
+				if(route.delete == null) {break;}
+				return route.delete.perform(connection, request);
 			case "CONNECT":
-				route.connect.perform(connection, request);
-				break;
+				if(route.connect == null) {break;}
+				return route.connect.perform(connection, request);
 			case "OPTIONS":
-				route.options.perform(connection, request);
-				break;
+				if(route.options == null) {break;}
+				return route.options.perform(connection, request);
 			case "TRACE":
-				route.trace.perform(connection, request);
-				break;
+				if(route.trace == null) {break;}
+				return route.trace.perform(connection, request);
 			case "PATCH":
-				route.patch.perform(connection, request);
-				break;
+				if(route.patch == null) {break;}
+				return route.patch.perform(connection, request);
 		}
-		return connection.getServerInstance().viewManager.views.get("error501").build();
+		return connection.getServerInstance().views.get("METHOD_NOT_IMPLEMENTED").build();
 	}
 	
+	public Route createRoute(String action) {
+		Route route = routes.get(action);
+		if(route == null) {
+			route = new Route();
+			routes.put(action, route);
+		}
+		return route;
+	}
+	
+	public Route createRoute(String action, Method method) {
+		Route route = createRoute(action);
+		route.get = method;
+		route.post = method;
+		route.head = method;
+		route.put = method;
+		route.delete = method;
+		route.connect = method;
+		route.options = method;
+		route.trace = method;
+		route.patch = method;
+		return route;
+	}
+		
 }

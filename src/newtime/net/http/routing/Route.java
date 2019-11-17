@@ -6,20 +6,18 @@ import newtime.net.http.response.HttpResponse;
 
 public class Route {
 
-	public Method get;
-	public Method post;
-	public Method head;
-	public Method put;
-	public Method delete;
-	public Method connect;
-	public Method options;
-	public Method trace;
-	public Method patch;
+	public static Method METHOD_NOT_ALLOWED = (HttpConnection connection, HttpRequest request) -> {
+		return connection.getServerInstance().views.get("METHOD_NOT_ALLOWED").build();
+	};
 	
-}
-
-interface Method {
-	
-	public HttpResponse perform(HttpConnection connection, HttpRequest request);
+	public Method get = METHOD_NOT_ALLOWED;
+	public Method post = METHOD_NOT_ALLOWED;
+	public Method head = METHOD_NOT_ALLOWED;
+	public Method put = METHOD_NOT_ALLOWED;
+	public Method delete = METHOD_NOT_ALLOWED;
+	public Method connect = METHOD_NOT_ALLOWED;
+	public Method options = METHOD_NOT_ALLOWED;
+	public Method trace = METHOD_NOT_ALLOWED;
+	public Method patch = METHOD_NOT_ALLOWED;
 	
 }
