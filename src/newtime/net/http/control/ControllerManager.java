@@ -4,8 +4,8 @@ import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
 import newtime.net.http.view.View;
 
-public interface ControllerManager {
+public abstract class ControllerManager {
 
-	public View invoke(HttpConnection connection, HttpRequest request, String view);
+	public abstract View invoke(HttpConnection connection, HttpRequest request, String view);
 	
 }

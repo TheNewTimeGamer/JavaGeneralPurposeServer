@@ -2,7 +2,7 @@ package newtime.net.http.view;
 
 import java.util.HashMap;
 
-public class InternalViewManager implements ViewManager {
+public class InternalViewManager extends ViewManager {
 
 	private HashMap<String, View> views = new HashMap<String, View>();
 

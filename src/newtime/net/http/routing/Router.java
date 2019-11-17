@@ -4,7 +4,7 @@ import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
 import newtime.net.http.response.HttpResponse;
 
-public interface Router {
+public abstract class Router {
 
 	public abstract HttpResponse route(HttpConnection connection, HttpRequest request);
 	public abstract Route createRoute(String action);

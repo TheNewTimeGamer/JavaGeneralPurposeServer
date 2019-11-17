@@ -9,7 +9,7 @@ import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
 import newtime.net.http.view.View;
 
-public class ExternalControllerManager implements ControllerManager {
+public class ExternalControllerManager extends ControllerManager {
 
 	public View invoke(HttpConnection connection, HttpRequest request, String controller) {
 		View view = null;

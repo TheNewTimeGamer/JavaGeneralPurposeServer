@@ -5,7 +5,7 @@ import newtime.net.http.request.HttpRequest;
 import newtime.net.http.response.HttpResponse;
 import newtime.util.ResourceManager;
 
-public class ExternalRouter implements Router {
+public class ExternalRouter extends Router {
 
 	public HttpResponse route(HttpConnection connection, HttpRequest request) {
 		byte[] data = ResourceManager.getFileContent("http/routes/routes.cfg");

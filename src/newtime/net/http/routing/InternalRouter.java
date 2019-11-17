@@ -6,7 +6,7 @@ import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
 import newtime.net.http.response.HttpResponse;
 
-public class InternalRouter implements Router {
+public class InternalRouter extends Router {
 
 	public HashMap<String, Route> routes = new HashMap<String, Route>();
 	

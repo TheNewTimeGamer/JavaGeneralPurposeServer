@@ -2,7 +2,7 @@ package newtime.net.http.view;
 
 import java.io.File;
 
-public class ExternalViewManager implements ViewManager {
+public class ExternalViewManager extends ViewManager {
 
 	public View get(String key) {
 		File root = new File("http/views");
