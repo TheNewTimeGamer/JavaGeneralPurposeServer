@@ -1,7 +1,5 @@
 package newtime.net.http.control;
 
-public class ControllerManager {
+public interface ControllerManager {
 
-	
-	
 }
