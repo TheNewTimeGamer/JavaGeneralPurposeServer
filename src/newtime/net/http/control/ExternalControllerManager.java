@@ -18,7 +18,6 @@ public class ExternalControllerManager extends ControllerManager {
 		
 		String[] ops = controller.split("@");		
 		File root = new File("http/controllers/");
-		
 		try {
 			URL[] urls = new URL[] {root.toURI().toURL()};		
 			ClassLoader loader = new URLClassLoader(urls);

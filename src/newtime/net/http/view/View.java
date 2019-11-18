@@ -2,6 +2,8 @@ package newtime.net.http.view;
 
 import java.io.File;
 
+import newtime.maniac.Preprocessor;
+import newtime.net.auth.Session;
 import newtime.net.http.response.HttpResponse;
 import newtime.util.ResourceManager;
 
@@ -22,6 +24,17 @@ public class View {
 		HttpResponse response = new HttpResponse();
 		
 		response.body = content.getBytes();
+		
+		response.header.put("Content-Type", "text/html");
+		response.header.put("Content-Length", ""+response.body.length);
+		
+		return response;
+	}
+	
+	public HttpResponse build(Session session) {
+		HttpResponse response = new HttpResponse();
+		
+		response.body = Preprocessor.process(session, this.content).getBytes();
 		
 		response.header.put("Content-Type", "text/html");
 		response.header.put("Content-Length", ""+response.body.length);
