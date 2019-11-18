@@ -5,6 +5,7 @@ import java.util.HashMap;
 import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
 import newtime.net.http.response.HttpResponse;
+import newtime.net.http.view.ViewManager;
 
 public class InternalRouter extends Router {
 
@@ -13,7 +14,7 @@ public class InternalRouter extends Router {
 	public HttpResponse route(HttpConnection connection, HttpRequest request) {
 		Route route = routes.get(request.action);
 		if(route == null) {
-			return connection.getServerInstance().views.get("FILE_NOT_FOUND").build();
+			return ViewManager.FILE_NOT_FOUND.build();
 		}
 		switch(request.method) {
 			case "GET":
@@ -44,7 +45,7 @@ public class InternalRouter extends Router {
 				if(route.patch == null) {break;}
 				return route.patch.perform(connection, request);
 		}
-		return connection.getServerInstance().views.get("METHOD_NOT_IMPLEMENTED").build();
+		return ViewManager.METHOD_NOT_IMPLEMENTED.build();
 	}
 	
 	public Route createRoute(String action) {
