@@ -1,4 +1,4 @@
-package newtime.net.auth;
+package newtime.net.instancing;
 
 import java.util.HashMap;
 

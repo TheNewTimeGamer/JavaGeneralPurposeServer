@@ -1,11 +1,9 @@
 package newtime.net.gps;
 
-import newtime.net.http.HttpConnection;
 import newtime.net.http.HttpServer;
 import newtime.net.http.control.Controller;
 import newtime.net.http.control.ExternalControllerManager;
-import newtime.net.http.request.HttpRequest;
-import newtime.net.http.routing.InternalRouter;
+import newtime.net.http.routing.ExternalRouter;
 import newtime.net.http.routing.Route;
 import newtime.net.http.view.ExternalViewManager;
 import newtime.net.tcp.kernel.Kernel;
@@ -28,11 +26,9 @@ public class GeneralPurposeServer {
 
 		server.views = new ExternalViewManager();
 		server.controllers = new ExternalControllerManager();
-		server.routes = new InternalRouter();
+		server.routes = new ExternalRouter();
 		
-		Route r = server.routes.createRoute("/test2");
-		r.get = Controller::example;
-		
+
 	}
 	
 }

@@ -1,12 +1,12 @@
 package newtime.maniac;
 
-import newtime.net.auth.Session;
+import newtime.net.instancing.Session;
 
 public class Preprocessor {
 
 	public static String process(Session session, String raw) {
 		raw = processVariables(session, raw);
-		raw = processOperators(session, raw);		
+		raw = processOperators(session, raw);
 		return raw;
 	}
 	
@@ -20,19 +20,8 @@ public class Preprocessor {
 	}
 	
 	private static String processOperators(Session session, String raw) {
-		String[] lines = raw.split("\r\n");
-		
-		int depth = 0;
-		for(int i = 0; i < lines.length; i++) {
-			String line = lines[i].replace("\t", "");
-			while(line.contains("  ")) {
-				line = line.replace("  ", "");
-			}
-			System.out.println(line);
-		}
-		
-		
-		return raw;
+		return "";	// TO-DO: implement.
 	}
-	
+
 }
+

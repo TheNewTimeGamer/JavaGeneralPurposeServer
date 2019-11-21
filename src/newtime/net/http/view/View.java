@@ -3,8 +3,8 @@ package newtime.net.http.view;
 import java.io.File;
 
 import newtime.maniac.Preprocessor;
-import newtime.net.auth.Session;
 import newtime.net.http.response.HttpResponse;
+import newtime.net.instancing.Session;
 import newtime.util.ResourceManager;
 
 public class View {

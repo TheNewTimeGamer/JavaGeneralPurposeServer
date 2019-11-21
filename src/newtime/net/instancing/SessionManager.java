@@ -1,4 +1,4 @@
-package newtime.net.auth;
+package newtime.net.instancing;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
