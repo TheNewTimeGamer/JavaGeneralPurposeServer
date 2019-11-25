@@ -5,6 +5,7 @@ import java.io.File;
 import newtime.maniac.Preprocessor;
 import newtime.net.http.response.HttpResponse;
 import newtime.net.instancing.Session;
+import newtime.util.FileDictionary;
 import newtime.util.ResourceManager;
 
 public class View {
@@ -12,13 +13,22 @@ public class View {
 	private String status = "200 OK";
 	private String content = "";
 	
-	public View(String status, String content) {
+	private String contentType = "text/html";
+	
+	public View(String status, String contentType, String content) {
 		this.status = status;
 		this.content = content;
 	}
 	
 	public View(File file) {
 		byte[] data = ResourceManager.getFileContent(file);
+		
+		String extension = FileDictionary.getFileExtensionFromPath(file.getAbsolutePath());
+		String cType = FileDictionary.getMeta("http", extension);
+		if(cType != null) {
+			this.contentType = cType;
+		}
+		
 		if(data == null) {
 			System.err.println("Could not load view template from: " + file.getAbsolutePath());
 		}
@@ -30,7 +40,7 @@ public class View {
 		
 		response.body = content.getBytes();
 		
-		response.header.put("Content-Type", "text/html");
+		response.header.put("Content-Type", this.contentType);
 		response.header.put("Content-Length", ""+response.body.length);
 		
 		return response;
@@ -43,7 +53,7 @@ public class View {
 		
 		response.body = Preprocessor.process(session, this.content).getBytes();
 		
-		response.header.put("Content-Type", "text/html");
+		response.header.put("Content-Type", this.contentType);
 		response.header.put("Content-Length", ""+response.body.length);
 		
 		return response;
