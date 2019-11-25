@@ -38,6 +38,8 @@ public class View {
 	public HttpResponse build() {
 		HttpResponse response = new HttpResponse();
 		
+		response.status = status;
+		
 		response.body = content.getBytes();
 		
 		response.header.put("Content-Type", this.contentType);
