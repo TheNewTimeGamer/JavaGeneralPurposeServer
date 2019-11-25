@@ -1,10 +1,12 @@
 package newtime.net.http.view;
 
+import java.io.File;
+
 public abstract class ViewManager {
 
-	public static final View FILE_NOT_FOUND = new View("http/defaults/FileNotFound.html");
-	public static final View METHOD_NOT_ALLOWED = new View("http/defaults/MethodNotAllowed.html");
-	public static final View METHOD_NOT_IMPLEMENTED = new View("http/defaults/MethodNotImplemented.html");
+	public static final View FILE_NOT_FOUND = new View("404 NOT FOUND", "<b>404 NOT FOUND</b>");
+	public static final View METHOD_NOT_ALLOWED = new View("405 METHOD NOT ALLOWED", "405 METHOD NOT ALLOWED");
+	public static final View METHOD_NOT_IMPLEMENTED = new View("501 METHOD NOT IMPLEMENTED", "501 METHOD NOT IMPLEMENTED");
 	
 	public abstract View get(String key);
 	public abstract View put(String key, View view);

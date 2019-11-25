@@ -1,9 +1,10 @@
 package newtime.net.http.view;
 
+import java.io.File;
 import java.util.HashMap;
 
 public class InternalViewManager extends ViewManager {
-
+	
 	private HashMap<String, View> views = new HashMap<String, View>();
 	
 	public View get(String key) {
@@ -15,7 +16,7 @@ public class InternalViewManager extends ViewManager {
 	}
 	
 	public View create(String name, String path) {
-		View view = new View(path);
+		View view = new View(new File(path));
 		views.put(name, view);
 		return view;
 	}

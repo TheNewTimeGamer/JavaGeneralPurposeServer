@@ -9,10 +9,15 @@ import newtime.util.ResourceManager;
 
 public class View {
 	
-	private String content;
+	private String status = "200 OK";
+	private String content = "";
 	
-	public View(String path) {
-		File file = new File(path);
+	public View(String status, String content) {
+		this.status = status;
+		this.content = content;
+	}
+	
+	public View(File file) {
 		byte[] data = ResourceManager.getFileContent(file);
 		if(data == null) {
 			System.err.println("Could not load view template from: " + file.getAbsolutePath());
@@ -33,6 +38,8 @@ public class View {
 	
 	public HttpResponse build(Session session) {
 		HttpResponse response = new HttpResponse();
+		
+		response.status = this.status;
 		
 		response.body = Preprocessor.process(session, this.content).getBytes();
 		

@@ -21,7 +21,7 @@ public class GeneralPurposeServer {
 		if(server == null) {
 			System.err.println("Could not host server on port: " + port);
 			return;
-		}		
+		}
 		Kernel kernel = new Kernel(server);
 
 		server.views = new ExternalViewManager();
