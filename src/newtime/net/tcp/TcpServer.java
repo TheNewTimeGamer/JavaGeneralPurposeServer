@@ -22,8 +22,6 @@ public class TcpServer implements Runnable {
 	protected ArrayList<TcpConnection> connections = new ArrayList<TcpConnection>();
 	
 	protected ServerSocket server;
-	protected InputStream in;
-	protected OutputStream out;
 	
 	protected Thread thread;
 	
@@ -55,31 +53,9 @@ public class TcpServer implements Runnable {
 	}
 	
 	public void close() {
-		this.closeInputStream();
-		this.closeOutputStream();
+		this.listening = false;
 		this.closeServer();
 		this.thread = null;
-	}
-			
-	private boolean closeInputStream() {
-		try {
-			this.in.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-	
-	private boolean closeOutputStream() {
-		try {
-			this.out.flush();
-			this.out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
 	}
 	
 	private boolean closeServer() {
