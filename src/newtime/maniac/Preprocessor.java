@@ -20,7 +20,7 @@ public class Preprocessor {
 	}
 	
 	private static String processOperators(Session session, String raw) {
-		return "";	// TO-DO: implement.
+		return raw;	// TO-DO: implement.
 	}
 
 }
