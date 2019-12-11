@@ -7,10 +7,10 @@ import java.net.Socket;
 
 public class TcpConnection implements Runnable {
 
-	public static TcpConnection create(TcpServer server, String ip, int port) {
+	public static TcpConnection create(String ip, int port) {
 		TcpConnection connection = null;
 		try {
-			connection = new TcpConnection(server, ip, port);
+			connection = new TcpConnection(ip, port);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -48,9 +48,7 @@ public class TcpConnection implements Runnable {
 		this.thread.start();
 	}
 	
-	protected TcpConnection(TcpServer server, String ip, int port) throws IOException {
-		this.server = server;
-		
+	protected TcpConnection(String ip, int port) throws IOException {
 		Socket socket = new Socket(ip, port);		
 		this.socket = socket;
 		this.in = socket.getInputStream();

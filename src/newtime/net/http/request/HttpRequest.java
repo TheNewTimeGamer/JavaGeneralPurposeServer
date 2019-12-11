@@ -2,6 +2,7 @@ package newtime.net.http.request;
 
 import java.nio.ByteBuffer;
 import java.security.KeyStore.Entry;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,7 +79,7 @@ public class HttpRequest {
 	
 	protected void processPostParameters(byte[] buffer, String body) {
 		String contentType = header.get("Content-Type");
-		if(contentType == null || contentType.contains("text/html")) {		
+		if(contentType == null || contentType.contains("text/html") || contentType.contains("application/x-www-form-urlencoded")) {		
 			if(body.contains("&")) {
 				String[] parameters = body.split("&");
 				for(int i = 0; i < parameters.length; i++) {

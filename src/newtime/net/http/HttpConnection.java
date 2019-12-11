@@ -10,10 +10,10 @@ import newtime.net.tcp.TcpConnection;
 
 public class HttpConnection extends TcpConnection {
 
-	public static HttpConnection create(HttpServer server, String ip, int port) {
+	public static HttpConnection create(String ip, int port) {
 		HttpConnection connection = null;
 		try {
-			connection = new HttpConnection(server, ip, port);
+			connection = new HttpConnection(ip, port);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -34,8 +34,8 @@ public class HttpConnection extends TcpConnection {
 		super(server, socket);
 	}
 
-	protected HttpConnection(HttpServer server, String ip, int port) throws IOException {
-		super(server, ip, port);
+	protected HttpConnection(String ip, int port) throws IOException {
+		super(ip, port);
 	}
 	
 	public void onData(byte[] buffer) {
