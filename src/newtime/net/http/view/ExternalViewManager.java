@@ -22,11 +22,11 @@ public class ExternalViewManager extends ViewManager {
 	}
 
 	public View put(String key, View view) {
-		throw new UnsupportedOperationException("The external Router does not support this feature.");
+		throw new UnsupportedOperationException("The external ViewManager does not support this feature.");
 	}
 
 	public View create(String key, String path) {
-		throw new UnsupportedOperationException("The external Router does not support this feature.");
+		throw new UnsupportedOperationException("The external ViewManager does not support this feature.");
 	}
 
 }

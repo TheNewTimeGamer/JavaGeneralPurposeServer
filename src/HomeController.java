@@ -9,7 +9,7 @@ public class HomeController extends Controller {
 	public static HttpResponse displayList(HttpConnection connection, HttpRequest request) {
 		Session session = new Session();
 		session.variables.put("test", "Tim");
-		HttpResponse response = connection.getServerInstance().views.get("test2").build(session);		
+		HttpResponse response = connection.getServerInstance().views.get("home").build(session);		
 		return response;
 	}
 	

@@ -13,7 +13,7 @@ public class HttpRequest {
 		try {
 			request = new HttpRequest(buffer);
 		}catch(Exception e) {
-			e.printStackTrace();
+			System.err.println("Malformed Request, ignoring..");
 		}
 		return request;
 	}

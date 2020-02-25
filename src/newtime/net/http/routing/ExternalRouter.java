@@ -3,6 +3,7 @@ package newtime.net.http.routing;
 import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
 import newtime.net.http.response.HttpResponse;
+import newtime.net.http.view.View;
 import newtime.util.ResourceManager;
 
 public class ExternalRouter extends Router {
@@ -25,7 +26,12 @@ public class ExternalRouter extends Router {
 			if(!args[0].equals(request.action)) {continue;}
 			String[] ops = args[1].split("::");
 			if(ops[0].equals("view")) {
-				response = connection.getServerInstance().views.get(ops[1]).build();
+				View view = connection.getServerInstance().views.get(ops[1]);
+				if(view == null) {
+					System.out.println("Unknown View: " + ops[1]);
+				}else {
+					response = view.build();
+				}
 			}else if (ops[0].equals("controller")) {
 				response = connection.getServerInstance().controllers.invoke(connection, request, ops[1]);
 			}
