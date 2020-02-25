@@ -31,8 +31,8 @@ public class ExternalControllerManager extends ControllerManager {
 			
 			response = (HttpResponse) m.invoke(null, connection, request);
 		}catch(InvocationTargetException | IllegalAccessException | IllegalArgumentException | ClassNotFoundException | NoSuchMethodException | SecurityException | MalformedURLException e) {
-			System.err.println("Could not invoke method: \"" + ops[1] + "\" within controller: \"" + ops[0] + "\"!");			
-			e.getCause().printStackTrace();
+			System.err.println("Could not invoke method: \"" + ops[1] + "\" within controller: \"" + ops[0] + "\"!");	
+			e.initCause(e.getCause()).printStackTrace();
 			response = new HttpResponseInternalServerError();
 		}
 		return response;

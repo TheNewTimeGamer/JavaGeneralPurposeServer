@@ -1,9 +1,13 @@
 package newtime.net.http.routing;
 
+import java.io.File;
+
 import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
 import newtime.net.http.response.HttpResponse;
 import newtime.net.http.view.View;
+import newtime.net.http.view.ViewManager;
+import newtime.util.FileDictionary;
 import newtime.util.ResourceManager;
 
 public class ExternalRouter extends Router {
@@ -37,9 +41,28 @@ public class ExternalRouter extends Router {
 			}
 		}
 		
+		if(response == null) {
+			response = findInDefaults(request.action);
+		}
+		
 		return response;
 	}
 
+	public HttpResponse findInDefaults(String action) {
+		File file = new File("http/defaults/" + action);
+		if(!file.exists() || !file.isFile()) {
+			return ViewManager.FILE_NOT_FOUND.build();
+		}
+		byte[] buffer = ResourceManager.getFileContent(file);
+		
+		HttpResponse response = new HttpResponse();
+		response.header.put("Content-Type", FileDictionary.getMeta("http", FileDictionary.getFileExtensionFromPath(file.getAbsolutePath())));		
+		response.header.put("Content-Length", ""+buffer.length);
+		response.body = buffer;
+
+		return response;		
+	}
+	
 	public Route createRoute(String action) {
 		throw new UnsupportedOperationException("The external Router does not support this feature.");
 	}
