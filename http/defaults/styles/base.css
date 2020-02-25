@@ -42,8 +42,8 @@ header nav div a {
 
 #content {
     width: 75%;
-    min-height: 100vh;
+    min-height: 95vh;
     margin: 0 12.5%;
-    box-shadow: 2px 5px 10px black, -2px 5px 10px black;
+    box-shadow: 2px 3px 8px rgb(34, 34, 34), -2px 3px 8px rgb(34, 34, 34);
     background-color: whitesmoke;
 }
