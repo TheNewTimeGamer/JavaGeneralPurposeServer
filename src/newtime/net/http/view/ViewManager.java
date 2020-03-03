@@ -2,14 +2,31 @@ package newtime.net.http.view;
 
 import java.io.File;
 
-public abstract class ViewManager {
+public class ViewManager implements IViewManager {
 
-	public static final View FILE_NOT_FOUND = new View("404 NOT FOUND", "text/html", "<b>404 NOT FOUND</b>");
-	public static final View METHOD_NOT_ALLOWED = new View("405 METHOD NOT ALLOWED", "text/html", "405 METHOD NOT ALLOWED");
-	public static final View METHOD_NOT_IMPLEMENTED = new View("501 METHOD NOT IMPLEMENTED", "text/html", "501 METHOD NOT IMPLEMENTED");
+	public static final View FILE_NOT_FOUND = new View(new File("http/defaults/FileNotFound.html"));
+	public static final View METHOD_NOT_ALLOWED = new View(new File("http/defaults/MethodNotAllowed.html"));
+	public static final View METHOD_NOT_IMPLEMENTED = new View(new File("http/defaults/MethodNotImplemented.html"));
 	
-	public abstract View get(String key);
-	public abstract View put(String key, View view);
-	public abstract View create(String key, String path);	
-	
+	public View get(String key) {
+		File root = new File("http/views");
+		File[] files = root.listFiles();
+		
+		View view = null;
+		
+		for(File file : files) {
+			if(!file.getName().split("\\.")[0].equals(key)) {continue;}
+			view = new View(file);
+		}
+		return view;
+	}
+
+	public View put(String key, View view) {
+		throw new UnsupportedOperationException("The external ViewManager does not support this feature.");
+	}
+
+	public View create(String key, String path) {
+		throw new UnsupportedOperationException("The external ViewManager does not support this feature.");
+	}
+
 }

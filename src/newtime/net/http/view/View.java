@@ -2,22 +2,18 @@ package newtime.net.http.view;
 
 import java.io.File;
 
-import newtime.maniac.Preprocessor;
 import newtime.net.http.response.HttpResponse;
-import newtime.net.instancing.Session;
+import newtime.net.http.response.resource.Resource;
 import newtime.util.FileDictionary;
 import newtime.util.ResourceManager;
 
-public class View {
+public class View extends Resource {
 	
 	private String status = "200 OK";
-	private String content = "";
-	
-	private String contentType = "text/html";
-	
+		
 	public View(String status, String contentType, String content) {
+		super(contentType, content.getBytes());
 		this.status = status;
-		this.content = content;
 	}
 	
 	public View(File file) {
@@ -32,7 +28,7 @@ public class View {
 		if(data == null) {
 			System.err.println("Could not load view template from: " + file.getAbsolutePath());
 		}
-		this.content = new String(data);
+		this.content = data;
 	}
 	
 	public HttpResponse build() {
@@ -40,7 +36,7 @@ public class View {
 		
 		response.status = status;
 		
-		response.body = content.getBytes();
+		response.body = this.content;
 		
 		response.header.put("Content-Type", this.contentType);
 		response.header.put("Content-Length", ""+response.body.length);
@@ -48,25 +44,20 @@ public class View {
 		return response;
 	}
 	
-	public HttpResponse build(Session session) {
-		HttpResponse response = new HttpResponse();
-		
-		response.status = this.status;
-		
-		response.body = Preprocessor.process(session, this.content).getBytes();
-		
-		response.header.put("Content-Type", this.contentType);
-		response.header.put("Content-Length", ""+response.body.length);
-		
-		return response;
-	}
-	
-	public String getContent() {
+	public byte[] getContent() {
 		return this.content;
 	}
 	
-	public void setContent(String content) {
+	public String getContentAsString() {
+		return new String(this.content);
+	}
+	
+	public void setContent(byte[] content) {
 		this.content = content;
+	}
+	
+	public void setContent(String content) {
+		this.content = content.getBytes();
 	}
 	
 	public String getStatus() {

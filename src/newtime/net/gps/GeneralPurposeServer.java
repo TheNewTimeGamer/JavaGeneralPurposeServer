@@ -1,17 +1,12 @@
 package newtime.net.gps;
 
 import newtime.net.http.HttpServer;
-import newtime.net.http.control.Controller;
-import newtime.net.http.control.ExternalControllerManager;
-import newtime.net.http.routing.ExternalRouter;
-import newtime.net.http.routing.Route;
-import newtime.net.http.view.ExternalViewManager;
 import newtime.net.tcp.kernel.Kernel;
 
 public class GeneralPurposeServer {
 	
 	public static void main(String[] args) {
-		new GeneralPurposeServer(80);
+		new GeneralPurposeServer(444);
 	}
 	
 	private HttpServer server;
@@ -23,10 +18,6 @@ public class GeneralPurposeServer {
 			return;
 		}
 		Kernel kernel = new Kernel(server);
-
-		server.views = new ExternalViewManager();
-		server.controllers = new ExternalControllerManager();
-		server.routes = new ExternalRouter();
 		
 
 	}

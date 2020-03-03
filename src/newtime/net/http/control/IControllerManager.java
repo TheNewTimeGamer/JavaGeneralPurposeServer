@@ -5,10 +5,8 @@ import newtime.net.http.request.HttpRequest;
 import newtime.net.http.response.HttpResponse;
 import newtime.net.http.view.View;
 
-public class InternalControllerManager extends ControllerManager {
+public interface IControllerManager {
 
-	public HttpResponse invoke(HttpConnection connection, HttpRequest request, String view) {
-		return null;
-	}
+	public abstract HttpResponse invoke(HttpConnection connection, HttpRequest request, String view);
 	
 }
