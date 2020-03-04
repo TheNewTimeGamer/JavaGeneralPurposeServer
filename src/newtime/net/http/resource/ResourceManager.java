@@ -1,34 +1,35 @@
 package newtime.net.http.resource;
 
 import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
 
-import newtime.net.http.response.resource.BinaryResource;
-import newtime.net.http.response.resource.Resource;
-import newtime.util.FileDictionary;
-import newtime.util.FileManager;
+import newtime.net.http.response.HttpResponse;
+import newtime.net.instancing.Session;
 
-public class ResourceManager implements IResourceManager {
+public class ResourceManager {
 
-	public Resource get(String key) {
-		File root = new File("http/views");
-		File[] files = root.listFiles();
-		
-		BinaryResource resource = null;
-		
-		for(File file : files) {
-			if(!file.getName().split("\\.")[0].equals(key)) {continue;}
-			byte[] content = FileManager.getFileContent(file);
-			resource = new BinaryResource(FileDictionary.getMeta("http", FileDictionary.getFileExtensionFromPath(file.getAbsolutePath())), content);
+	public Resource getResource(String key) {
+		Resource resource = null;
+		try {
+			File root = new File("http/resources/");		
+			URL[] url = new URL[] { root.toURI().toURL() };
+			
+			ClassLoader loader = new URLClassLoader(url);
+			Class c = loader.loadClass(key);
+			
+			resource = (Resource) c.newInstance();
+		}catch(Exception e) {
+			e.initCause(e.getCause()).printStackTrace();
 		}
-		return resource;
+		return resource;	
 	}
-
-	public Resource put(String key, Resource view) {
-		throw new UnsupportedOperationException("The external ViewManager does not support this feature.");
-	}
-
-	public Resource create(String key, String path) {
-		throw new UnsupportedOperationException("The external ViewManager does not support this feature.");
+	
+	public HttpResponse buildResource(String key, Session session) {
+		HttpResponse response = null;
+		Resource resource = getResource(key);
+		response = resource.build(session);
+		return response;
 	}
 
 }

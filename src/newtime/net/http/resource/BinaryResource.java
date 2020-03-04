@@ -1,6 +1,7 @@
-package newtime.net.http.response.resource;
+package newtime.net.http.resource;
 
 import newtime.net.http.response.HttpResponse;
+import newtime.net.instancing.Session;
 
 public class BinaryResource extends Resource{
 	
@@ -20,8 +21,8 @@ public class BinaryResource extends Resource{
 	public void setContent(byte[] content) {
 		this.content = content;
 	}
-	
-	public HttpResponse build() {
+
+	public HttpResponse build(Session session) {
 		HttpResponse response = new HttpResponse();
 		
 		response.status = "200 OK";		
@@ -33,4 +34,5 @@ public class BinaryResource extends Resource{
 		return response;
 	}
 	
+
 }

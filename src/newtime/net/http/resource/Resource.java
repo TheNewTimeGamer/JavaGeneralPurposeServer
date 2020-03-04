@@ -1,6 +1,7 @@
-package newtime.net.http.response.resource;
+package newtime.net.http.resource;
 
 import newtime.net.http.response.HttpResponse;
+import newtime.net.instancing.Session;
 
 public abstract class Resource implements IResource {
 
@@ -29,6 +30,6 @@ public abstract class Resource implements IResource {
 	public abstract void setContent(byte[] content);
 
 	
-	public abstract HttpResponse build();
+	public abstract HttpResponse build(Session session);
 	
 }

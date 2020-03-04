@@ -6,9 +6,9 @@ import javax.swing.text.View;
 
 import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
+import newtime.net.http.resource.Resource;
 import newtime.net.http.resource.ResourceManager;
 import newtime.net.http.response.HttpResponse;
-import newtime.net.http.response.resource.Resource;
 import newtime.util.FileDictionary;
 import newtime.util.FileManager;
 
@@ -32,11 +32,11 @@ public class Router implements IRouter {
 			if(!args[0].equals(request.action)) {continue;}
 			String[] ops = args[1].split("::");
 			if(ops[0].equals("view")) {
-				Resource resource = connection.getServerInstance().resources.get(ops[1]);
+				Resource resource = connection.getServerInstance().resources.getResource(ops[1]);
 				if(resource == null) {
-					System.out.println("Unknown View: " + ops[1]);
+					System.err.println("Unknown resource: " + ops[1]);
 				}else {
-					response = resource.build();
+					response = resource.build(null);
 				}
 			}else if (ops[0].equals("controller")) {
 				response = connection.getServerInstance().controllers.invoke(connection, request, ops[1]);

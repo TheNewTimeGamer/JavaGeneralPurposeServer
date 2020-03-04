@@ -1,9 +1,10 @@
-package newtime.net.http.response.resource;
+package newtime.net.http.resource;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import newtime.net.http.response.HttpResponse;
+import newtime.net.instancing.Session;
 
 public abstract class HtmlResource extends Resource {
 	
@@ -34,6 +35,6 @@ public abstract class HtmlResource extends Resource {
 		this.document = document;
 	}
 	
-	public abstract HttpResponse build();
+	public abstract HttpResponse build(Session session);
 
 }
