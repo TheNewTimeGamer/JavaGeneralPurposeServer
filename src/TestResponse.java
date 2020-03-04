@@ -1,3 +1,5 @@
+import java.io.File;
+
 import org.jsoup.Jsoup;
 
 import newtime.net.http.resource.HtmlResource;
@@ -8,8 +10,7 @@ import newtime.util.FileManager;
 public class TestResponse extends HtmlResource {
 		
 	public TestResponse() {
-		super("");
-		this.document = Jsoup.parse(new String(FileManager.getFileContent("http/html/home.html")));
+		super(new File("http/html/home.html"));
 	}
 
 	public HttpResponse build(Session session) {
