@@ -12,7 +12,7 @@ import newtime.net.http.response.HttpResponse;
 import newtime.util.FileDictionary;
 import newtime.util.FileManager;
 
-public class Router implements IRouter {
+public class RouteManager {
 
 	public HttpResponse route(HttpConnection connection, HttpRequest request) {
 		byte[] data = FileManager.getFileContent("http/routes/routes.cfg");

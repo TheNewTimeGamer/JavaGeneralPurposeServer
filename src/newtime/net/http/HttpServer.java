@@ -5,13 +5,13 @@ import java.net.Socket;
 
 import newtime.net.http.control.ControllerManager;
 import newtime.net.http.resource.ResourceManager;
-import newtime.net.http.routing.Router;
+import newtime.net.http.routing.RouteManager;
 import newtime.net.tcp.TcpServer;
 import newtime.util.FileDictionary;
 
 public class HttpServer extends TcpServer {
 
-	public Router routes = new Router();
+	public RouteManager routes = new RouteManager();
 	public ResourceManager resources = new ResourceManager();
 	public ControllerManager controllers = new ControllerManager();
 	

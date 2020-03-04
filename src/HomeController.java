@@ -6,7 +6,7 @@ import newtime.net.http.response.HttpResponse;
 
 public class HomeController extends Controller {
 
-	public static HttpResponse showHomePage(HttpConnection connection, HttpRequest request) {
+	public HttpResponse showHomePage(HttpConnection connection, HttpRequest request) {
 		Resource resource = connection.getServerInstance().resources.getResource("TestResponse");
 		return resource.build(null);
 	}	
