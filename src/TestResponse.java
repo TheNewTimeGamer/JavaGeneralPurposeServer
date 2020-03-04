@@ -3,12 +3,13 @@ import org.jsoup.Jsoup;
 import newtime.net.http.resource.HtmlResource;
 import newtime.net.http.response.HttpResponse;
 import newtime.net.instancing.Session;
+import newtime.util.FileManager;
 
 public class TestResponse extends HtmlResource {
 		
 	public TestResponse() {
 		super("");
-		this.document = Jsoup.parse("<html>Test <b>Bold</b></html>");
+		this.document = Jsoup.parse(new String(FileManager.getFileContent("http/html/home.html")));
 	}
 
 	public HttpResponse build(Session session) {
