@@ -29,7 +29,7 @@ public class FileDictionary {
 		}
 		int count = 0;
 		
-		byte[] data = ResourceManager.getFileContent(file);
+		byte[] data = FileManager.getFileContent(file);
 		if(data == null) {
 			System.err.println("\r\nFailed to read file dictionary: " + file.getAbsolutePath());
 			return -2;

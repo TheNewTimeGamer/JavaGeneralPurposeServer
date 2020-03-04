@@ -2,18 +2,20 @@ package newtime.net.http.routing;
 
 import java.io.File;
 
+import javax.swing.text.View;
+
 import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
+import newtime.net.http.resource.ResourceManager;
 import newtime.net.http.response.HttpResponse;
-import newtime.net.http.view.View;
-import newtime.net.http.view.ViewManager;
+import newtime.net.http.response.resource.Resource;
 import newtime.util.FileDictionary;
-import newtime.util.ResourceManager;
+import newtime.util.FileManager;
 
 public class Router implements IRouter {
 
 	public HttpResponse route(HttpConnection connection, HttpRequest request) {
-		byte[] data = ResourceManager.getFileContent("http/routes/routes.cfg");
+		byte[] data = FileManager.getFileContent("http/routes/routes.cfg");
 		if(data == null) {
 			System.err.println("Could not load \"routes.cfg\"");
 			return null;
@@ -30,11 +32,11 @@ public class Router implements IRouter {
 			if(!args[0].equals(request.action)) {continue;}
 			String[] ops = args[1].split("::");
 			if(ops[0].equals("view")) {
-				View view = connection.getServerInstance().views.get(ops[1]);
-				if(view == null) {
+				Resource resource = connection.getServerInstance().resources.get(ops[1]);
+				if(resource == null) {
 					System.out.println("Unknown View: " + ops[1]);
 				}else {
-					response = view.build();
+					response = resource.build();
 				}
 			}else if (ops[0].equals("controller")) {
 				response = connection.getServerInstance().controllers.invoke(connection, request, ops[1]);
@@ -50,10 +52,8 @@ public class Router implements IRouter {
 
 	public HttpResponse findInDefaults(String action) {
 		File file = new File("http/defaults/" + action);
-		if(!file.exists() || !file.isFile()) {
-			return ViewManager.FILE_NOT_FOUND.build();
-		}
-		byte[] buffer = ResourceManager.getFileContent(file);
+		
+		byte[] buffer = FileManager.getFileContent(file);
 		
 		HttpResponse response = new HttpResponse();
 		response.header.put("Content-Type", FileDictionary.getMeta("http", FileDictionary.getFileExtensionFromPath(file.getAbsolutePath())));		
@@ -61,14 +61,6 @@ public class Router implements IRouter {
 		response.body = buffer;
 
 		return response;		
-	}
-	
-	public Route createRoute(String action) {
-		throw new UnsupportedOperationException("The external Router does not support this feature.");
-	}
-	
-	public Route createRoute(String action, Method method) {
-		throw new UnsupportedOperationException("The external Router does not support this feature.");
 	}
 
 }

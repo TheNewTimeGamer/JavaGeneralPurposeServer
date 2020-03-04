@@ -4,6 +4,7 @@ import newtime.net.http.response.HttpResponse;
 
 public abstract class Resource implements IResource {
 
+	protected String status;
 	protected String contentType;
 
 	public String getContentType() {
@@ -14,6 +15,13 @@ public abstract class Resource implements IResource {
 		this.contentType = contentType;
 	}
 
+	public String getStatus() {
+		return this.status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	
 	public abstract byte[] getContent();
 

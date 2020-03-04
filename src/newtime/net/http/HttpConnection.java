@@ -5,7 +5,6 @@ import java.net.Socket;
 
 import newtime.net.http.request.HttpRequest;
 import newtime.net.http.response.HttpResponse;
-import newtime.net.http.view.View;
 import newtime.net.tcp.TcpConnection;
 
 public class HttpConnection extends TcpConnection {

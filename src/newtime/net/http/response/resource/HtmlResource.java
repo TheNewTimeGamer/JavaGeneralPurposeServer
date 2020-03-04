@@ -17,15 +17,7 @@ public abstract class HtmlResource extends Resource {
 	public HtmlResource(Document document) {
 		this.document = document;
 	}
-	
-	public String getStatus() {
-		return this.status;
-	}
-	
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
+		
 	public byte[] getContent() {
 		return document.toString().getBytes();
 	}

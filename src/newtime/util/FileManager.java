@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 import newtime.net.http.response.HttpResponse;
 
-public class ResourceManager {
+public class FileManager {
 	
 	private static HashMap<String, ByteBuffer> resources = new HashMap<String, ByteBuffer>();
 	
