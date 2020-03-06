@@ -33,8 +33,12 @@ public class ControllerManager {
 			
 			response = (HttpResponse) m.invoke(controller, connection, request);
 		}catch(Exception e) {
-			System.err.println("Could not invoke method: \"" + ops[1] + "\" within controller: \"" + ops[0] + "\"!");	
-			e.initCause(e.getCause()).printStackTrace();
+			System.err.println("Could not invoke method: \"" + ops[1] + "\" within controller: \"" + ops[0] + "\"!");
+			if(e.getCause() != null) {
+				e.initCause(e.getCause()).printStackTrace();
+			}else {
+				e.printStackTrace();
+			}
 			response = new HttpResponseInternalServerError();
 		}
 		return response;

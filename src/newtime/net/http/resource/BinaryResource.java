@@ -4,6 +4,7 @@ import java.io.File;
 
 import newtime.net.http.response.HttpResponse;
 import newtime.net.instancing.Session;
+import newtime.util.FileDictionary;
 import newtime.util.FileManager;
 
 public class BinaryResource extends Resource{
@@ -11,6 +12,11 @@ public class BinaryResource extends Resource{
 	protected byte[] content;
 	
 	public BinaryResource() {}
+	
+	public BinaryResource(File file) {
+		this.contentType = FileDictionary.getFileExtensionFromPath(file.getAbsolutePath());
+		this.content = FileManager.getFileContent(file);
+	}
 	
 	public BinaryResource(String contentType, File file) {
 		this.contentType = contentType;

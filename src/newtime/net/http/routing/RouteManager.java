@@ -2,12 +2,10 @@ package newtime.net.http.routing;
 
 import java.io.File;
 
-import javax.swing.text.View;
-
 import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
+import newtime.net.http.resource.BinaryResource;
 import newtime.net.http.resource.Resource;
-import newtime.net.http.resource.ResourceManager;
 import newtime.net.http.response.HttpResponse;
 import newtime.util.FileDictionary;
 import newtime.util.FileManager;
@@ -32,7 +30,7 @@ public class RouteManager {
 			if(!args[0].equals(request.action)) {continue;}
 			String[] ops = args[1].split("::");
 			if(ops[0].equals("view")) {
-				Resource resource = connection.getServerInstance().resources.getResource(ops[1]);
+				Resource resource = connection.getServerInstance().resources.loadResource("http/resources/private/", ops[1]);
 				if(resource == null) {
 					System.err.println("Unknown resource: " + ops[1]);
 				}else {
@@ -44,27 +42,21 @@ public class RouteManager {
 		}
 		
 		if(response == null) {
-			response = findInDefaults(request.action);
+			response = findInPublic(connection, request);
 		}
 		
 		return response;
 	}
 
-	public HttpResponse findInDefaults(String action) {
-		File file = new File("http/resources/" + action);
+	public HttpResponse findInPublic(HttpConnection connection, HttpRequest request) {
+		File file = new File("http/resources/public/" + request.action);		
+		Resource resource = new BinaryResource(file);
 		
-		byte[] buffer = FileManager.getFileContent(file);
-		
-		if(buffer == null) {
-			buffer = FileManager.getFileContent("http/templates/FileNotFound.html");
-		}
-		
-		HttpResponse response = new HttpResponse();
-		response.header.put("Content-Type", FileDictionary.getMeta("http", FileDictionary.getFileExtensionFromPath(file.getAbsolutePath())));		
-		response.header.put("Content-Length", ""+buffer.length);
-		response.body = buffer;
-
-		return response;		
+		if(resource.getContent() == null) {
+			resource = connection.getServerInstance().resources.getResource("ResourceNotFound");
+		}		
+				
+		return resource.build(null);		
 	}
 
 }

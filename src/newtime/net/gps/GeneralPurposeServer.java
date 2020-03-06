@@ -6,7 +6,7 @@ import newtime.net.tcp.kernel.Kernel;
 public class GeneralPurposeServer {
 	
 	public static void main(String[] args) {
-		new GeneralPurposeServer(80);
+		new GeneralPurposeServer(444);
 	}
 	
 	private HttpServer server;
@@ -19,7 +19,6 @@ public class GeneralPurposeServer {
 		}
 		Kernel kernel = new Kernel(server);
 		
-
 	}
 	
 }

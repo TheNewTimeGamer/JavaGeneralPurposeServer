@@ -16,7 +16,7 @@ public class HttpServer extends TcpServer {
 	public ControllerManager controllers = new ControllerManager();
 	
 	public static HttpServer host(int port) {
-		FileDictionary.load("cfg/FileDictionary.cfg");
+		FileDictionary.load("cfg/FileDictionary.cfg");		
 		HttpServer server = null;
 		try {
 			server = new HttpServer(port);
@@ -28,6 +28,7 @@ public class HttpServer extends TcpServer {
 	
 	protected HttpServer(int port) throws IOException {
 		super(port);
+		resources.loadDefaults();
 	}
 
 	public HttpConnection onConnection(Socket socket) {
