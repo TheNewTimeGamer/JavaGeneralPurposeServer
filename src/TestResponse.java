@@ -10,7 +10,7 @@ import newtime.util.FileManager;
 public class TestResponse extends HtmlResource {
 		
 	public TestResponse() {
-		super(new File("http/html/home.html"));
+		super(new File("http/templates/home.html"));
 	}
 
 	public HttpResponse build(Session session) {

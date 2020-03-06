@@ -12,10 +12,10 @@ import newtime.net.http.response.HttpResponse;
 import newtime.util.FileDictionary;
 import newtime.util.FileManager;
 
-public class RouteManager {
-
+public class RouteManager {	
+	
 	public HttpResponse route(HttpConnection connection, HttpRequest request) {
-		byte[] data = FileManager.getFileContent("http/routes/routes.cfg");
+		byte[] data = FileManager.getFileContent("http/routes.cfg");
 		if(data == null) {
 			System.err.println("Could not load \"routes.cfg\"");
 			return null;
@@ -51,9 +51,13 @@ public class RouteManager {
 	}
 
 	public HttpResponse findInDefaults(String action) {
-		File file = new File("http/defaults/" + action);
+		File file = new File("http/resources/" + action);
 		
 		byte[] buffer = FileManager.getFileContent(file);
+		
+		if(buffer == null) {
+			buffer = FileManager.getFileContent("http/templates/FileNotFound.html");
+		}
 		
 		HttpResponse response = new HttpResponse();
 		response.header.put("Content-Type", FileDictionary.getMeta("http", FileDictionary.getFileExtensionFromPath(file.getAbsolutePath())));		

@@ -6,7 +6,7 @@ import newtime.net.tcp.kernel.Kernel;
 public class GeneralPurposeServer {
 	
 	public static void main(String[] args) {
-		new GeneralPurposeServer(444);
+		new GeneralPurposeServer(80);
 	}
 	
 	private HttpServer server;
