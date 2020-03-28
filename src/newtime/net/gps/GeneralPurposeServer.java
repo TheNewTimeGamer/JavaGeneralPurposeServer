@@ -1,18 +1,24 @@
 package newtime.net.gps;
 
+import java.io.IOException;
+
 import newtime.net.http.HttpServer;
 import newtime.net.tcp.kernel.Kernel;
 
 public class GeneralPurposeServer {
 	
 	public static void main(String[] args) {
-		new GeneralPurposeServer(444);
+		try {
+			new GeneralPurposeServer(80);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private HttpServer server;
 		
-	public GeneralPurposeServer(int port) {
-		server = HttpServer.host(port);
+	public GeneralPurposeServer(int port) throws IOException {
+		server = new HttpServer(port);
 		if(server == null) {
 			System.err.println("Could not host server on port: " + port);
 			return;

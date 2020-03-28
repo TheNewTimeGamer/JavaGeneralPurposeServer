@@ -26,7 +26,7 @@ public class ResourceManager {
 			resource = (Resource) c.newInstance();
 		}catch(Exception e) {
 			if(e.getCause() != null) {
-				e.initCause(e.getCause()).printStackTrace();
+				e.getCause().printStackTrace();
 			}else {
 				e.printStackTrace();
 			}

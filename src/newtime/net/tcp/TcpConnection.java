@@ -6,26 +6,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 public class TcpConnection implements Runnable {
-
-	public static TcpConnection create(String ip, int port) {
-		TcpConnection connection = null;
-		try {
-			connection = new TcpConnection(ip, port);
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
-	
-	public static TcpConnection create(TcpServer server, Socket socket) {
-		TcpConnection connection = null;
-		try {
-			connection = new TcpConnection(server, socket);
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
 	
 	protected TcpServer server;
 	
@@ -37,7 +17,7 @@ public class TcpConnection implements Runnable {
 	
 	protected boolean listening = true;
 	
-	protected TcpConnection(TcpServer server, Socket socket) throws IOException {
+	public TcpConnection(TcpServer server, Socket socket) throws IOException {
 		this.server = server;
 		
 		this.socket = socket;
@@ -48,7 +28,7 @@ public class TcpConnection implements Runnable {
 		this.thread.start();
 	}
 	
-	protected TcpConnection(String ip, int port) throws IOException {
+	public TcpConnection(String ip, int port) throws IOException {
 		Socket socket = new Socket(ip, port);		
 		this.socket = socket;
 		this.in = socket.getInputStream();
@@ -58,17 +38,12 @@ public class TcpConnection implements Runnable {
 		this.thread.start();
 	}
 
+	// TODO: Maybe keep connection alive somehow without huge cpu usage?
 	public void run() {
-		long last = System.currentTimeMillis();
 		while(listening) {
 			try {
-				boolean receivedData = listen();
-				if(!receivedData) {
-					if(System.currentTimeMillis()-last > 4500) {
-						this.listening = false;
-					}
-				}else {
-					last = System.currentTimeMillis();
+				if(!listen()) {
+					listening = false;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -83,7 +58,6 @@ public class TcpConnection implements Runnable {
 		this.closeOutputStream();
 		this.closeSocket();
 		this.thread = null;
-		this.server.connections.remove(this);
 	}
 			
 	private boolean closeInputStream() {

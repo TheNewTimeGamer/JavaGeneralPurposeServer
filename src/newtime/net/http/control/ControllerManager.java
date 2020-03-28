@@ -35,7 +35,7 @@ public class ControllerManager {
 		}catch(Exception e) {
 			System.err.println("Could not invoke method: \"" + ops[1] + "\" within controller: \"" + ops[0] + "\"!");
 			if(e.getCause() != null) {
-				e.initCause(e.getCause()).printStackTrace();
+				e.getCause().printStackTrace();
 			}else {
 				e.printStackTrace();
 			}

@@ -16,8 +16,6 @@ public class HomeResponse extends HtmlResource {
 	public HttpResponse build(Session session) {
 		HttpResponse response = new HttpResponse();
 		
-		this.document.append((String) session.variables.get("test"));
-		
 		response.body = this.document.toString().getBytes();
 		
 		response.header.put("Content-Type", "text/html");

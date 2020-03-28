@@ -6,13 +6,14 @@ import newtime.net.http.HttpConnection;
 import newtime.net.http.request.HttpRequest;
 import newtime.net.http.resource.BinaryResource;
 import newtime.net.http.resource.Resource;
+import newtime.net.http.response.HttpQuickResponse;
 import newtime.net.http.response.HttpResponse;
 import newtime.util.FileDictionary;
 import newtime.util.FileManager;
 
 public class RouteManager {	
 	
-	public HttpResponse route(HttpConnection connection, HttpRequest request) {
+	public HttpResponse route(HttpConnection connection, HttpRequest request) {		
 		byte[] data = FileManager.getFileContent("http/routes.cfg");
 		if(data == null) {
 			System.err.println("Could not load \"routes.cfg\"");
@@ -49,7 +50,7 @@ public class RouteManager {
 	}
 
 	public HttpResponse findInPublic(HttpConnection connection, HttpRequest request) {
-		File file = new File("http/resources/public/" + request.action);		
+		File file = new File("http/resources/public/" + request.action);
 		Resource resource = new BinaryResource(file);
 		
 		if(resource.getContent() == null) {

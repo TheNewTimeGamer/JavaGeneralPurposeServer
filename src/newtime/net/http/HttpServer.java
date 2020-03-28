@@ -14,25 +14,19 @@ public class HttpServer extends TcpServer {
 	public RouteManager routes = new RouteManager();
 	public ResourceManager resources = new ResourceManager();
 	public ControllerManager controllers = new ControllerManager();
-	
-	public static HttpServer host(int port) {
-		FileDictionary.load("cfg/FileDictionary.cfg");		
-		HttpServer server = null;
-		try {
-			server = new HttpServer(port);
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		return server;
-	}
-	
-	protected HttpServer(int port) throws IOException {
+		
+	public HttpServer(int port) throws IOException {
 		super(port);
 		resources.loadDefaults();
 	}
 
 	public HttpConnection onConnection(Socket socket) {
-		HttpConnection connection = HttpConnection.create(this, socket);
+		HttpConnection connection = null;
+		try {
+			connection = new HttpConnection(this, socket);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return connection;
 	}
 	

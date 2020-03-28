@@ -7,12 +7,9 @@ import newtime.net.instancing.Session;
 
 public class HomeController extends Controller {
 
-	public HttpResponse showHomePage(HttpConnection connection, HttpRequest request) {
-		Session session = new Session();
-		session.variables.put("test", "lol SUPER TEST!");
-		
+	public HttpResponse showHomePage(HttpConnection connection, HttpRequest request) {		
 		Resource resource = connection.getServerInstance().resources.loadResource("http/resources/private/", "HomeResponse");
-		return resource.build(session);
+		return resource.build(null);
 	}	
 	
 }

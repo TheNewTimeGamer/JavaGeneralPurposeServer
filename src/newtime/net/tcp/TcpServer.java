@@ -9,25 +9,13 @@ import java.util.ArrayList;
 
 public class TcpServer implements Runnable {
 
-	public static TcpServer host(int port) {
-		TcpServer server = null;
-		try {
-			server = new TcpServer(port);
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		return server;
-	}
-	
-	protected ArrayList<TcpConnection> connections = new ArrayList<TcpConnection>();
-	
 	protected ServerSocket server;
 	
 	protected Thread thread;
 	
 	protected boolean listening = true;
 	
-	protected TcpServer(int port) throws IOException {
+	public TcpServer(int port) throws IOException {
 		this.server = new ServerSocket(port);
 				
 		this.thread = new Thread(this);
@@ -67,13 +55,14 @@ public class TcpServer implements Runnable {
 		}
 		return true;
 	}
-	
-	public ArrayList<TcpConnection> getConnections(){
-		return this.connections;
-	}
-	
+		
 	public TcpConnection onConnection(Socket socket) {
-		TcpConnection connection = TcpConnection.create(this, socket);
+		TcpConnection connection = null;
+		try {
+			connection = new TcpConnection(this, socket);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return connection;
 	}
 	
