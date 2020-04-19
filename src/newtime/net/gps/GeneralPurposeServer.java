@@ -4,12 +4,14 @@ import java.io.IOException;
 
 import newtime.net.http.HttpServer;
 import newtime.net.tcp.kernel.Kernel;
+import newtime.util.FileDictionary;
 
 public class GeneralPurposeServer {
 	
 	public static void main(String[] args) {
+		FileDictionary.load("cfg/FileDictionary.cfg");
 		try {
-			new GeneralPurposeServer(80);
+			new GeneralPurposeServer(444);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

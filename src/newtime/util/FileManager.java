@@ -4,14 +4,6 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import newtime.net.http.resource.BinaryResource;
-import newtime.net.http.resource.HtmlResource;
-import newtime.net.http.resource.Resource;
-import newtime.net.http.response.HttpResponse;
 
 public class FileManager {
 	
