@@ -10,8 +10,8 @@ import newtime.util.FileDictionary;
 
 public class HttpServer extends TcpServer {
 
-	public RouteManager routes = new RouteManager();
-	public ControllerManager controllers = new ControllerManager();
+	public RouteManager routeManage = new RouteManager();
+	public ControllerManager controllerManager = new ControllerManager();
 		
 	public HttpServer(int port) throws IOException {
 		super(port);

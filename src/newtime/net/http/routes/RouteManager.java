@@ -14,7 +14,7 @@ public class RouteManager {
 	public HttpResponse route(HttpConnection connection, HttpRequest request) {
 		Route route = getRoute(request.action);
 		if(route == null) {
-			Controller defaultController = connection.getServerInstance().controllers.defaultController;
+			Controller defaultController = connection.getServerInstance().controllerManager.defaultController;
 			return new Route(request.action, defaultController).invoke(connection, request);
 		}
 		return route.invoke(connection, request);

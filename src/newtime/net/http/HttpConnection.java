@@ -26,7 +26,7 @@ public class HttpConnection extends TcpConnection {
 		if(request == null) {
 			response = new BadRequestHttpResponse();
 		}else {		
-			response = ((HttpServer)this.server).routes.route(this, request);
+			response = ((HttpServer)this.server).routeManage.route(this, request);
 			if(response == null) {
 				response = new InternalServerErrorHttpResponse();
 			}
