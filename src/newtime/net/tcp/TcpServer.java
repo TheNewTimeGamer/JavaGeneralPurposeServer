@@ -7,6 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import org.graalvm.polyglot.Context;
+
 public class TcpServer implements Runnable {
 
 	protected ServerSocket server;
@@ -15,13 +17,13 @@ public class TcpServer implements Runnable {
 	
 	protected boolean listening = true;
 	
-	public TcpServer(int port) throws IOException {
-		this.server = new ServerSocket(port);
-				
-		this.thread = new Thread(this);
-		this.thread.start();
-	}
+	protected Context mainContext;
 	
+	public TcpServer(Context mainContext, int port) throws IOException {
+		this.server = new ServerSocket(port);
+		this.mainContext = mainContext;
+	}
+		
 	public void run() {
 		while(listening) {
 			try {
@@ -40,10 +42,19 @@ public class TcpServer implements Runnable {
 		}
 	}
 	
+	public void open() {
+		this.thread = new Thread(this);
+		this.thread.start();
+	}	
+	
 	public void close() {
 		this.listening = false;
 		this.closeServer();
-		this.thread = null;
+		try {
+			this.thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private boolean closeServer() {

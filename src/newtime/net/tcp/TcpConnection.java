@@ -146,4 +146,8 @@ public class TcpConnection implements Runnable {
 		return this.server;
 	}
 	
+	public String getIpAddress() {
+		return socket.getInetAddress().getHostAddress();
+	}
+	
 }
